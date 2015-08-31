@@ -1,0 +1,161 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=",Django中文论坛"/>
+    <meta name="generator" content="Django 1.8"/>
+    <meta name="author" content="Django"/>
+    <meta name="copyright" content="Django."/>
+    <meta name="MSSmartTagsPreventParsing" content="True"/>
+    <meta http-equiv="MSThemeCompatible" content="Yes"/>
+    <meta name="renderer" content="webkit">
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/deepin.js' %}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deepin_style_2_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deepin_style_2_forum_guide.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deepin_style_2_forum_viewthread.css' %}"/>
+    <script src="{% static 'js/deepin_common.js' %}" type="text/javascript"></script>
+    <meta name="application-name" content="Django中文论坛"/>
+    <meta name="msapplication-tooltip" content="Django中文论坛"/>
+    <meta name="msapplication-task"
+          content="name=全部板块;action-uri=#"/>
+    <link rel="archives" title="Django中文论坛" href="#"/>
+    <script src="{% static 'js/deepin_forum.js' %}" type="text/javascript"></script>
+    {% block head_ext %}
+    {% endblock %}
+</head>
+
+<body id="nv_forum" class="pg_viewthread" onkeydown="if(event.keyCode==27) return false;">
+
+{#<div id="append_parent">#}
+{##}
+{#        {% block append %}#}
+{#    <div id="fwin_reply" class="fwinmask" initialized="true"#}
+{#         style="position: fixed; z-index: 201; left: 443px; top: 110px;">#}
+{#        <style type="text/css">object {#}
+{#            visibility: hidden;#}
+{#        }</style>#}
+{#        <table cellpadding="0" cellspacing="0" class="fwin">#}
+{#            <tbody>#}
+{#            <tr>#}
+{#                <td class="t_l"></td>#}
+{#                <td class="t_c" style="cursor: move" onmousedown="dragMenu($('fwin_reply'), event, 1)"#}
+{#                    onclick="hideWindow('reply')"></td>#}
+{#                <td class="t_r"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td class="m_l" style="cursor: move" onmousedown="dragMenu($('fwin_reply'), event, 1)"#}
+{#                    onclick="hideWindow('reply')"></td>#}
+{#                <td class="m_c" id="fwin_content_reply" fwin="reply" style="">#}
+{#                    <h3 class="flb" id="fctrl_reply" style="cursor: move">#}
+{#                        <em id="return_reply" fwin="reply">参与／主题回复</em>#}
+{#                            <span>#}
+{#                                <a href="javascript:" class="flbc" onclick="hideWindow('reply')" title="关闭">关闭</a>#}
+{#                            </span>#}
+{#                    </h3>#}
+{##}
+{#                    <form action="#" method="post" autocomplete="off" id="postform"#}
+{#                          onsubmit="this.message.value = parseurl(this.message.value);ajaxpost('postform', 'return_reply', 'return_reply', 'onerror');return false;"#}
+{#                          fwin="reply">#}
+{#                        <div class="c" id="floatlayout_reply" fwin="reply">#}
+{#                            <input type="hidden" name="noticeauthor" value="#">#}
+{#                            <input type="hidden" name="reppid" value="#">#}
+{#                            <input type="hidden" name="reppost" value="#">#}
+{##}
+{#                            <div class="pbt cl">#}
+{#                                    <span id="subjecthide" class="z" fwin="reply">#}
+{#                                        RE:{{ topic.title }}  ["<a href="javascript:"#}
+{#                                                                   onclick="display('subjecthide');display('subjectbox');$('subject').value='RE: {{ topic.title }}'">修改</a>"]#}
+{#                                    </span>#}
+{#                                    <span id="subjectbox" style="display: none" fwin="reply">#}
+{#                                        <input name="subject" id="subject" class="px" value tabindex="21"#}
+{#                                               style="width: 25em" fwin="reply">#}
+{#                                        {{ fast_form }}#}
+{#                                        <div id="secheck_reply" fwin="reply"></div>#}
+{#                                    </span>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="o pns" id="moreconf" fwin="reply">#}
+{#                            <button class="pn pnc z" type="submit" id="postsubmit" value="true"#}
+{#                                    onmousemover="checkpostrule('seccheck_reply', 'ac=reply&infloat=yes&handlekey=reply');this.onmouseover=null"#}
+{#                                    name="replysubmit" tabindex="23" fwin="reply">#}
+{#                                <span>参与／回复主题</span>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                    <script type="text/javascript" reload="1">#}
+{#                        function succeedhandle_reply(locationhref, message) {#}
+{#                            try {#}
+{#                                var pid = locationhref.lastIndexOf('#pid');#}
+{#                                if (pid != -1) {#}
+{#                                    pid = locationhref.substr(pid + 4);#}
+{#                                    ajaxget('' + pid, 'post_new', 'ajaxwaitid', '', null, 'appendreply()');#}
+{#                                    if (replyreload) {#}
+{#                                        var reloadpids = replyreload.split(',');#}
+{#                                        for (i = 1; i < reloadpids.length; i++) {#}
+{#                                            ajaxget('' + reloadpids[i], 'post_' + reloadpids[i]);#}
+{#                                        }#}
+{#                                    }#}
+{#                                } else {#}
+{#                                    showDialog(message, 'notice', '', 'location.href="' + locationhref + '"');#}
+{#                                }#}
+{#                            } catch (e) {#}
+{#                                location.href = locationhref;#}
+{#                            }#}
+{#                            hideWindow('reply');#}
+{#                        }#}
+{##}
+{#                        if ($('subjectbox')) {#}
+{#                            $('postmessage').focus();#}
+{#                        } else if ($('subject')) {#}
+{#                            $('subject').select();#}
+{#                            $('subject').focus();#}
+{#                        }#}
+{#                    </script>#}
+{#                </td>#}
+{#                <td class="m_r" style="cursor: move" onmousedown="dragMenu($('fwin_reply'), event, 1)" ondblclick="hideWindow('reply')"></td>#}
+{##}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td class="b_l"></td>#}
+{#                <td class="b_c" style="cursor: move" onmousedown="dragMenu($('fwin_reply'), event, 1)" ondblclick="hideWindow('reply')"></td>#}
+{#                <td class="b_r"></td>#}
+{#            </tr>#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#{% endblock %}#}
+{##}
+{#</div>#}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+
+<div id="wp" class="wp">
+    {% block panel %}
+
+        {% block panel_top %}
+        {% endblock %}
+
+
+        {% block topic_list %}
+        {% endblock %}
+
+    {% endblock %}
+</div>
+
+
+<div id="ft" class="wp cl">
+    {% block footer %}
+    {% endblock %}
+</div>
+
+{% block scroll_top %}
+{% endblock %}
+</body>

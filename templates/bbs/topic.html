@@ -1,0 +1,321 @@
+{% extends 'common/base.html' %}
+
+{% load staticfiles %}
+
+{% block header_ext %}
+    {{ form.media }}
+    <link rel="stylesheet" href="{% static 'css/deepin_style_2_forum_viewthread.css' %}">
+    <style>
+        a.auth-info > img {
+            border-bottom-color: rgb(51, 102, 153);
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            border-bottom-style: none;
+            border-bottom-width: 0px;
+            border-left-color: rgb(51, 102, 153);
+            border-left-style: none;
+            border-left-width: 0px;
+            border-right-color: rgb(51, 102, 153);
+            border-right-style: none;
+            border-right-width: 0px;
+            border-top-color: rgb(51, 102, 153);
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            border-top-style: none;
+            border-top-width: 0px;
+            color: rgb(51, 102, 153);
+            display: inline;
+            font-family: 'Microsoft YaHei', 宋体, 'Source Han Sans SC', Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            height: 48px;
+            line-height: 18px;
+            text-decoration: none;
+            width: 48px;
+            word-wrap: break-word;
+        }
+
+        .pcb {
+            margin-left: 100px;
+        }
+
+        #postlist {
+            width: 1000px;
+        }
+
+        div#ct.wp.cl {
+            margin-right: 30px;
+            margin-left: 30px;
+            width: 1044px;
+        }
+
+        div#postlist.pl.bm {
+            width: 1044px;
+        }
+
+        div.pi {
+            padding-top: -20px;
+            margin-bottom: 10px;
+        }
+
+        .plhin > table {
+            width: 1024px;
+            height: 136px;
+        }
+
+        img.authicn.vm {
+            height: auto;
+            width: auto;
+        }
+
+        div.authi > em {
+            height: auto;
+            width: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+
+    <div class="panel-heading" style="height: 79px">
+        <h3 class="panel-title">版面导航</h3>
+        <a href="{% url 'bb:index' %}">首页</a>
+        <em>> </em>
+        <a href="{% url 'bb:category_details' topic_forum.category.id %}">{{ topic_forum.category.title }}</a>
+        <em>> </em>
+        <a href="{% url 'bb:forum_view' topic_forum.id %}">{{ topic_forum.title }}</a>
+        <span id="create_topic">
+            <a id="post_topic" href="{% url 'bb:create_topic' topic_forum.id %}">发新贴</a>
+        </span>
+    </div>
+{% endblock %}
+
+
+{% block panel_body %}
+
+    <div class="thread_tp">
+        <!-- Topic user info start  -->
+        <div class="thread-info">
+            <h1>
+                {{ topic.title }}
+            </h1>
+        </div>
+        <div class="z">
+            <a href="{% url 'user:profile' topic.author %}" target="_blank" class="xi2 z author-info"
+               style="padding-right: 10px;">
+                <img src="/media/{{ topic.author.avatar_img }}">
+            </a>
+        </div>
+        <div class="z">
+            <div class="author">
+                <a href="{% url 'user:profile' topic.author %}" class="xi2"
+                   target="_blank">作者：{{ topic.author }}</a>
+                <span class="sep"> / </span>
+                <span>{{ topic.created|date }}</span>
+            </div>
+        </div>
+        <div class="counter">
+            <span>浏览：{{ topic.view_count }}</span>
+            <span class="sep"> / </span>
+        <span>
+            回复：<span>{{ topic.reply_count }}</span>
+        </span>
+        </div>
+        <!-- Topic user info end  -->
+    </div>
+    <div class="wp cl" id="ct">
+        <!--poll start-->
+        <ul class="p_pop" id="newspecial_menu" style="display: none">
+            <li>
+                <a href="{{ topic.get_absolute_url }}">发表帖子</a>
+            </li>
+            <li class="poll">
+                <a href="#">发起投票</a>
+            </li>
+        </ul>
+        <!-- poll end -->
+
+        <!--- starting Topic and Post  -->
+        <div id="postlist" class="pl bm">
+
+            <!-- Topic starting -->
+            <div id="post_{{ topic.id }}" class="main">
+                <table class="plhin" id="pid{{ topic.id }}" summary="pid{{ topic.id }}" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td class="plc">
+                            <div class="main_post pi">
+                                <div class="act_btn y">
+                                    <a href="#" id="k_favorite"
+                                       onclick="showWindow(this.id, this.href, 'get', 0);"
+                                       onmouseover="this.title = $('favoritenumber').innerHTML + ' 人收藏'"
+                                       title="收藏本帖">
+                                        <i>
+                                            <img src="#" alt="收藏">
+                                        </i>
+                                    </a>
+                                </div>
+                                <div class="act_btn y">
+                                    <input type="text" class="px p_fre z" size="2"
+                                           onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=31920&authorid=0&postno='+this.value"
+                                           onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}"
+                                           title="跳转到指定楼层">
+                                    <a href="javascript:;" class="z" id="fj_btn" title="跳转到指定楼层">
+                                        <img src="#" alt="跳转到指定楼层" class="vm">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pct">
+                                <style type="text/css">.pcb {
+                                    margin-right: 0
+                                }</style>
+                                <div class="pcb">
+                                    <div class="t_fsz">
+                                        <table cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                            <tr>
+                                                <td class="t_f" id="postmesage{{ topic.id }}">
+                                                    {{ topic.content|safe }}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Topic ending -->
+
+            <!-- Post starting -->
+            {% for p in posts %}
+                <div id="post{{ p.id }}">
+                <table id="pid{{ p.id }}" class="plhin" summary="pid{{ p.id }}" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td class="pls" rowspan="2">
+                            <div id="favatar{{ p.id }}" class="pls favatar">
+                                <div>
+                                    <div class="avatar">
+                                        <a href="{% url 'user:profile' p.author %}" class="avtm"
+                                           target="_blank">
+                                            <img src="/media/{{ p.author.avatar_img }}">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="plc">
+                            <!-- post related info start-->
+                            <div class="pi">
+                                <strong>
+                                    <a href="">
+                                        <sup>楼层99</sup>
+                                        <sup>#</sup>
+                                    </a>
+                                </strong>
+
+                                <div class="pti">
+                                    <div class="pdbt"></div>
+                                    <div class="authi">
+                                        <img class="authicn vm" src="/media/{{ p.author.avatar_img }}">
+                                            <span class="author">
+                                                <a href="{% url 'user:profile' p.author %}" class="xi2"
+                                                   target="_blank"></a>
+                                            </span>
+                                        <em>
+                                            “发表于”
+                                            <span>{{ p.created|timeuntil }}</span>
+                                        </em>
+                                        <span class="pipe">|</span>
+                                        <a href="#" rel="nofollow">只看作者</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- post relate info end -->
+
+                            <!-- post content start -->
+                            <div class="pct">
+                                <div class="pcb">
+                                    <div class="t_fsz">
+                                        <table cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                            <tr>
+                                                <td class="t_f"
+                                                    id="post_message{{ p.id }}">{{ p.content|safe }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- post content end -->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
+            </div>
+            <!-- Post is end -->
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block panel_paganation %}
+    <div class="pgs mtm mbm cl">
+        <span class="pgb z" id="visitedforumstmp"
+              onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})">
+            {% if posts.has_previous %}
+                <a href="?page={{ posts.previous_page_number }}">返回</a>
+            {% endif %}
+        </span>
+
+        <div class="pg">
+            {% for page_number in posts.paginator.page_range %}
+                {% ifequal page_number posts.number %}
+                    <strong>{{ page_number }}</strong>
+                {% else %}
+                    <a href="?page={{ page_number }}">{{ page_number }}</a>
+                {% endifequal %}
+            {% endfor %}
+            <label>
+                <input type="text" name="custompage" class="px" size="2" title="输入页码，按回车快速跳转" value="1"
+                       onkeydown="if(event.keyCode==13) {window.location='?page='+this.value;; doane(event);}">
+                <span>/  {{ paginator.num_pages }}页</span>
+            </label>
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}" class="nxt">下一页</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block panel_editor %}
+    {% if request.user.is_authenticated %}
+        <div class="panel-footer" style="background-color: #f5f7fa">
+            <form method="post" action="{% url 'bb:create_topic_reply' topic.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-info" type="submit">create a now topic</button>
+            </form>
+        </div>
+    {% else %}
+        <div style="border-style: solid; border-width: 1px; border-color: #d3d3d3">
+            您需要登录后才可以回帖<a href="{% url 'user:login' %}">登录</a> | <a href="{% url 'user:register_ask' %}">注册</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block panel_footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}

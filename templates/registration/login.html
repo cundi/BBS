@@ -1,0 +1,58 @@
+{% extends 'deepin/base.html' %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+{% block topic_list %}
+    <style>
+        input{
+            width: 320px;
+        }
+    </style>
+    <div style="padding-left: 400px; font-size: 18px;">
+    <form class="form-horizontal" role="form" action="{% url 'user:login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.username.auto_id }}" class="col-sm-2 control-label">用户名</label>
+
+            <div class="col-sm-10">
+                {{ form.username.errors }}
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password.auto_id }}" class="col-sm-2 control-label">密码</label>
+
+            <div class="col-sm-10">
+                {{ form.password.errors }}
+                {{ form.password }}
+                <input type="hidden" name="redirect_field_name" value="/" id="redirect_field_name"/>
+            </div>
+        </div>
+        <div class="form-gruop">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">记住我
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-offset-6 col-sm-10">
+                {% url 'user:password_reset' as password_reset_url %}
+                {% if password_reset_url %}
+                    <div class="password-reset-link">
+                        <a href="{{ password_reset_url }}">忘记用户名或者密码?</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-newblue">登陆</button>
+            </div>
+        </div>
+    </form>
+    </div>
+{% endblock %}

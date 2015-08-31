@@ -1,0 +1,32 @@
+<div id="append_parent">
+    <div id="ls_fastloginfield_ctrl_menu" class="sltm" style="display: none; width: 40px">
+        <ul>
+            <li class="current">username</li>
+            <li>Email</li>
+        </ul>
+    </div>
+    <div id="fwin_nav" class="fwinmask" initialized="true" style="position: fixed; z-index: 201; left: 345.5px; top:100.5px">
+        <style type="text/css">object{visibility: hidden}</style>
+        <table class="fwin" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td class="t_l"></td>
+                    <td class="t_c" style="cursor: move" onmousedown="dragMenu($('fwin_nav'), event, 1)" ondblclick="hideWindow('nav')"></td>
+                    <td class="t_r">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="m_l" style="cursor:move" onmousedown="dragMenu($('fwin_nav'), event, 1)" ondblclick="hideWindow('nav')"></td>
+                    <td class="m_c" id="fwin_content_nav" fwin="nav" style>
+                        <div style="display: none">
+                            <ul id="fs_group" fwin="nav">
+                                <li fid=""></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

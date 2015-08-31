@@ -1,0 +1,48 @@
+{% extends 'deepin/base.html' %}
+
+
+{% block head_ext %}
+    {{ form.media }}
+{% endblock %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+
+
+{% block panel_top %}
+    <style>
+    div#wp.wp{
+        height: 800px;
+    }
+</style>
+    <div id="pt" class="bm cl">
+        <div class="z">
+            <a href="{% url 'bb:index' %}" class="nvhm" title="首页"></a>
+            <em>&rsaquo;</em>
+            <a href="{% url 'bb:category_view' forum.category.id %}">{{ forum.category.title }}</a>
+            <em>&rsaquo;</em>
+            <a href="{% url 'bb:forum_view' forum.id %}">{{ forum.title }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block topic_list %}
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="text-{{ message.tags }}">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        </div>
+    {% endif %}
+        <form method="post" action="{% url 'bb:create_topic' forum.id %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+        </form>
+    <input type="submit" style="border-radius: inherit">
+{% endblock %}

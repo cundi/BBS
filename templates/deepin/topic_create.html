@@ -1,0 +1,17 @@
+{% extends 'deepin/base.html' %}
+
+{% block head_ext %}
+    {{ form.media }}
+{% endblock %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'bb:create_topic' forum.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+    <input type="submit" style="border-radius: inherit">
+{% endblock %}

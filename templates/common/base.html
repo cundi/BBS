@@ -1,0 +1,84 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="Django中国社区，专注于Django中国技术发展的社区">
+    <meta name="author" content="cundi">
+    <meta name="keywords" content="Django中国,Python中国,Python,Django,Django中国社区,Python中国社区,Django中文社区,
+    Python中文社区,Django-china,Python-china,Django社区,Python社区,Django论坛,Python论坛">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <title>又一个Django中国社区 - 专注于Django中国技术发展的社区 </title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/deepin_style_2_common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/deepin_style_2_forum_guide.css' %}">
+    <script src="{% static 'js/deepin_common.js' %}"></script>
+    <script src="{% static 'js/deepin_forum.js' %}"></script>
+    <style type="text/css">
+        body {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .table > tbody > tr {
+            height: 90px;
+        }
+{#        a#post_topic{#}
+{#            cursor: pointer;font-size: 14px;text-decoration: none;line-height: 27px;#}
+{#            padding: 0 2px 0 40px;#}
+{#            background: 20px url(http://bbs.deepin.org/./template/deepin/image/icon_post_new.png) no-repeat;#}
+{#        }#}
+    </style>
+    {% block header_ext %}
+    {% endblock %}
+
+    <title>
+    </title>
+</head>
+
+<body>
+
+    {% block navbar %}
+    {% endblock %}
+
+    {% block body %}
+    {% endblock %}
+
+<div id="wp" class="wp">
+
+    {% block panel_heading %}
+    {% endblock %}
+
+    {% block panel_second_heading %}
+    {% endblock %}
+
+
+    {% block panel_body %}
+    {% endblock %}
+
+    {% block panel_paganation %}
+    {% endblock %}
+
+    {% block panel_editor %}
+    {% endblock %}
+
+    {% block panel_footer %}
+    {% endblock %}
+</div>
+
+
+</body>
+
+</html>

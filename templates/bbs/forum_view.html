@@ -1,0 +1,81 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block navbar %}
+    {% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+    <div class="panel-heading" style="height: 79px">
+        <h3 class="panel-title">版面导航</h3>
+        <a href="{% url 'bb:index' %}">首页</a>
+        <em>> </em>
+        <a href="{% url 'bb:category_view' forum.category.id %}">{{ forum.category.title }}</a>
+        <em>> </em>
+        <a href="{% url 'bb:forum_view' forum.id %}">{{ forum.title }}</a>
+        <span id="create_topic">
+            <a id="post_topic" href="{% url 'bb:create_topic' forum.id %}">发新贴</a>
+        </span>
+    </div>
+{% endblock %}
+
+{% block panel_second_heading %}
+    <table class="table">
+        <tbody>
+        <tr>
+            <td><a><img src="/media/{{ forum.logo }}" style="margin-left: -1px;"></a></td>
+            <td>
+                <a style="font-size: 20px;margin-left: -585px; margin-bottom: -40px; position: relative">{{ forum.title }}</a>
+            </td>
+            <td><p style="margin-left: -890px; margin-top: 40px">{{ forum.description }}</p></td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block panel_body %}
+    {% if topics %}
+        <div class="panel-body" style="height: 1000px; margin-left: -11px; margin-right: -11px;">
+            <table class="table table-hover" style="">
+                <caption>欢迎加入QQ群：888888</caption>
+                <thead>
+                <tr>
+                    <th>topic count {{ forum.topic_count }}</th>
+                </tr>
+                </thead>
+                {% for t in topics %}
+                    <tbody>
+                    <tr>
+                        <td><a href="{% url 'bb:topic_view'  t.id %}">{{ t.title}}</a></td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div>
+            <p>还没发表任何话题, 请选择发新帖</p>
+        </div>
+        <br>
+    {% endif %}
+{% endblock %}
+
+{% block panel_editor %}
+
+    <div class="panel-footer" style="background-color: #f5f7fa">
+        <p>
+            {% for page_number in topics.paginator.page_range %}
+                {% ifequal page_number topics.number %}
+                    {{ page_number }}
+                {% else %}
+                    <a href="?page={{ page_number }}">{{ page_number }}</a>
+                {% endifequal %}
+            {% endfor %}
+        </p>
+    </div>
+
+{% endblock %}
+
+{% block panel_footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}

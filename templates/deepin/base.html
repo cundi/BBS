@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>最新回帖 - 首页 Django中文论坛</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=",Django中文论坛"/>
+    <meta name="generator" content="Django 1.8"/>
+    <meta name="author" content="Django"/>
+    <meta name="copyright" content="Django."/>
+    <meta name="MSSmartTagsPreventParsing" content="True"/>
+    <meta http-equiv="MSThemeCompatible" content="Yes"/>
+    <meta name="renderer" content="webkit">
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/deepin.js' %}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deepin_style_2_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deepin_style_2_forum_guide.css' %}"/>
+    <script src="{% static 'js/deepin_common.js' %}" type="text/javascript"></script>
+    <meta name="application-name" content="Django中文论坛"/>
+    <meta name="msapplication-tooltip" content="Django中文论坛"/>
+    <meta name="msapplication-task"
+          content="name=全部板块;action-uri=#"/>
+    <link rel="archives" title="Django中文论坛" href="#"/>
+    <script src="{% static 'js/deepin_forum.js' %}" type="text/javascript"></script>
+    {% block head_ext %}
+    {% endblock %}
+</head>
+
+<body>
+{% block navbar_top %}
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+<div id="hd">
+    {% block hot_forums %}
+    {% endblock %}
+</div>
+
+
+<div id="wp" class="wp">
+{% block panel %}
+    <div id="pt" class="bm cl">
+    {% block panel_top %}
+    {% endblock %}
+    </div>
+
+    <div class="boardnav">
+        <div class="wp cl">
+            <div class="mn">
+                <div class="bml pbn">
+                    {% block panel_browse_nav %}
+                    {% endblock %}
+                </div>
+                {% block topic_list %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+        {% block content %}
+        {% endblock %}
+{% endblock %}
+</div>
+
+
+<div id="ft" class="wp cl">
+    {% block footer %}
+    {% endblock %}
+</div>
+</body>

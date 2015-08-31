@@ -1,0 +1,110 @@
+<div id="hd">
+    <div class="wp">
+        <div class="hdc cl">
+            <h2>
+                <a href="./" title="Django中文论坛">
+                    <img src="#" alt="django 论坛" border="0">
+                </a>
+            </h2>
+
+            <div id="um">
+                <div class="avt y">
+                    <a href="#">
+                        <img src="" alt="avatar_small">
+                    </a>
+                </div>
+                <p>
+                    <strong>
+                        <a href="#" target="_blank" title="访问我的空间">admin</a>
+                    </strong>
+                    <span class="pipe">|</span>
+                    <a href="javascript:;" id="myitem" class="showmenu"
+                       onmouseover="showMenu({'ctrid':'myitem'});">我的</a>
+                    <span class="pipe">|</span>
+                    <a href="#">设置</a>
+                    <span class="pipe">|</span>
+                    <a href="#" id="pm_ntc">消息</a>
+                    <span class="pipe">|</span>
+                    <a href="#" id="myprompt" class="a showmenu" onmouseover="showMenu({'ctrid': 'myprompt'});">提醒</a>
+                    <span id="myprompt_check"></span>
+                    <span class="pipe">|</span>
+                    <a href="#" target="_blank">全部板块管理</a>
+                    <span class="pipe">|</span>
+                    <a href="#">退出</a>
+                </p>
+
+                <p>
+                    <a href="#" id="extcreditmenu" onmouseover="delayShow(this.showCreditmenu);" class="showmenu">
+                        积分：123
+                    </a>
+                    <span class="pipe">|</span>
+                    <a href="#" id="g_upmine" class="showmenu" onmouseover="delayShow(this, showUpgradeinfo)">
+                        用户组：社区测试员
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div id="nv">
+            <span class="post y">
+                <a id="post" onclick="showWindow('nav', this.href, 'get', 0)" href="#">发新帖</a>
+            </span>
+            <a href="javascript:;" id="qmenu"
+               onmouseover="delayShow(this, function () {showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});showForummenu();})">快捷导航</a>
+            <ul class="nav">
+                <li id="mn_Nfaed" class="current">
+                    <a href="{% url 'bb:index' %}" hidefocus="true" class="current">最新回帖</a>
+                </li>
+                <li>
+                </li>
+                <li class="a" id="mn_forum">
+                    <a href="{% url 'bb:category_all' %}" hidefocus="true" title="BBS">
+                        全部板块
+                        <span>BBS</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div>
+        <div id="mu" class="cl">
+            " "
+        </div>
+        <div id="scbar" class="cl">
+            <form id="scform_form" method="post" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))" action="#" target="_blank">
+                <input type="hidden" name="mod" id="scbar_mod" value="search">
+                <input type="hidden" name="formhash" value="d37736a">
+                <input type="hidden" name="srchtype" value="title">
+                <input type="hidden" name="srhfid" value="">
+                <input type="hidden" name="srhlocality" value="forum::guide">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td class="scbar_icon_td"></td>
+                            <td class="scbar_txt_td">
+                                <input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech>
+                            </td>
+                            <td class="scbar_type_td">
+                                <a href="javascript:;" id="scbar_type" class="xg1" onclick="showMenu(this.id);" hidefocu="true">
+                                    帖子
+                                </a>
+                            </td>
+                            <td class="scbar_btn_td">
+                                <button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true">
+                                    <strong class="xi2">搜索</strong>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <ul id="scbar_type_menu" class="p_pop" style="display: none;">
+            <li>
+                <a href="javascript:;" rel="forum" class="curtype">帖子</a>
+            </li>
+            <li>
+                <a href="javascript:;" rel="user">用户</a>
+            </li>
+        </ul>
+        <script type="text/javascript">initSearchmenu('scbar', '');</script>
+    </div>
+</div>

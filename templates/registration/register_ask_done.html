@@ -1,0 +1,14 @@
+{% extends "deepin/base.html" %}
+
+{% block navbar %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+{% block topic_list %}
+<div class="row row-fluid" style="margin-left: 100px">
+        <div class="col-md-6 col-md-offset-3 column">
+            <strong>已经完成注册，请登陆</strong>
+            <button class="btn btn-default"><a href="{% url 'user:login' %}">login</a></button>
+        </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'account/profile_base.html' %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <div class="z">
+        <a href="{% url 'index' %}" class="nvhm" title="首页"></a>
+        <em>&rsaquo;</em>
+        <a href="#">个人资料</a>
+        <em>&rsaquo;</em>
+    </div>
+{% endblock %}
+
+<!-- Personal info start-->
+{% block manner %}
+    <div class="uhd" style="width: 1170px; height: 128px;">
+        <div class="mn" style="width: 68px;height: 56px; margin-bottom: -30px;margin-right: 15px; margin-left: 1100px;">
+            <ul>
+                <li class="addf">
+                    <a href="#" id="a_friend_li{{ other_profile.username }}" onclick="" class="xi2">加为好友</a>
+                </li>
+                <li class="pm2">
+                    <a href="#" id="a_sendpm_" onclick="" title="发送消息">发送消息</a>
+                </li>
+            </ul>
+        </div>
+        <div class="h cl" style="margin-left: 75px;">
+            <div class="icn avt" style="float: left;margin-left: -65px">
+                <a href="#">
+                    <img src="/media/{{ user.avatar_img }}" style="height: 68px;width: 68px;margin: 12px 20px 0 30px;border-radius: 50%;">
+                </a>
+            </div>
+            <h2 class="mt">
+                {{ other_profile.username }}
+                <span class="xw0">(UID: xxx)</span>
+            </h2>
+
+            <p>
+                <a href="#" class="xg1">http://xx.xxx.xxx</a>
+                <span class="pipe">|</span>
+                <a href="#">用户管理</a>
+            </p>
+            <ul id="usermanageli_menu" class="p_pop"
+                style="width: 80px; position: absolute; z-index: 301; left: 346.07421875px; top: 224px; display: none;"
+                initialized="true">
+                <li>
+                    <a href="#" target="_blank" class="hidefocus">禁止用户</a>
+                </li>
+
+            </ul>
+        </div>
+        <ul class="tb cl" style="padding-left: 75px">
+            <li>
+                <a href="{% url 'user:user_topic_post' other_user.username %}">主题</a>
+            </li>
+            <li class="a">
+                <a href="#">个人资料</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block other_content %}
+    <div class="ct1 wp cl" id="ct">
+        <div class="mn" style="margin-top: 25px;margin-left: 18px;">
+            <div class="bm bw0" >
+                <div class="bm_c">
+                    <div class="bm_c u_profile">
+                        <div class="bpm mbm bbda cl">
+                            <h2 class="bm">基本资料</h2>
+                            <ul class="pf_l cl pbm mbm">
+                                <li><em>邮箱状态</em>xxx</li>
+                                <li>
+                                    <em>个人主页</em>
+                                    <a href="#" target="_blank">{{ other_profile.website }}</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <em class="xg1">个人签名</em>
+                                    <table>
+                                        <tbody>
+                                        <tr>{{ other_profile.signature }}</tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
+                            <ul class="cl bbda pbm mbm">
+                                <li>
+                                    <em class="xg2">统计信息</em>
+                                    <a href="#" target="_blank">好友数xx</a>
+                                    <span class="pipe">|</span>
+                                    <a href="#" target="_blank">回帖数xxx</a>
+                                    <span class="pipe">|</span>
+                                    <a href="#" target="_blank">主题数xxx</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pbm mbm bbda cl">
+                            <h2 class="mbn">活跃概况</h2>
+                            <ul>
+                                <li>
+                                    <em class="xg1">管理组：xxx</em>
+                                    <span>
+                                        <a href="#" target="_blank"></a>
+                                    </span>
+                                </li>
+                                <li>
+                                    <em class="xg1">用户组</em>
+                                    <span>
+                                        <a href="#" target="_blank">社区测试员</a>
+                                    </span>
+                                </li>
+                            </ul>
+                            <ul class="pf_l" id="pbbs">
+                                <li>
+                                    <em>在线时间</em>
+                                    xxx小时
+                                </li>
+                                <li>
+                                    <em>注册时间</em>
+                                    2099-99-88
+                                </li>
+                                <li>
+                                    <em>最后访问</em>
+                                </li>
+                                <li>
+                                    <em>注册 IP</em>
+                                    －
+                                </li>
+                                <li>
+                                    <em>上次访问 IP</em>
+                                    ：－
+                                </li>
+                                <li>
+                                    <em>所在时区</em>
+                                    (GMT +08:00) 北京, 香港, 帕斯, 新加坡, 台北
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cl" id="psts">
+                            <h2 class="mbn">统计信息</h2>
+                            <ul class="pf_l">
+                                <li>
+                                    <em>积分</em>
+                                    XXX
+                                </li>
+                                <li>
+                                    <em>贡献</em>
+                                    XXX
+                                </li>
+                                <li>
+                                    <em>
+                                        金币
+                                    </em>
+                                    XXX
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- Personal info end-->
+
+<!--Footer start-->
+{% include 'deepin/footer.html' %}
+<!--Footer end-->
+
+<!-- scroll up start-->
+{% include 'deepin/scrolltop.html' %}
+<!-- scroll up end -->
+
+

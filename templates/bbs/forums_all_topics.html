@@ -1,0 +1,44 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{% load pagination_tags %}
+
+{% block navbar %}
+{% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+    {% include 'common/panel_heading.html' %}
+{% endblock %}
+
+{% block panel_body %}
+   <div class="panel-body" style="height: 1000px;  margin-left: -11px;
+        margin-right: -11px">
+    <table class="table table-hover" style="">
+        <thead>
+        <tr>
+            <th>the last topics list</th>
+        </tr>
+        </thead>
+        <tbody style="">
+        {% for f in f_topics %}
+        <tr>
+            {% if f.topic_set.all %}
+
+            <td></td>
+            {% else %}
+                has no topics
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block panel_paganation %}
+    {% include 'common/paganation.html' %}
+{% endblock %}
+
+{% block panel_footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}

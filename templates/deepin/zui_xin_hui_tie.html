@@ -1,0 +1,427 @@
+{% extends 'deepin/base_for_index.html' %}
+{% load staticfiles %}
+{% block head_ext %}
+    <style type="text/css">
+        .xl2 {
+            background: url(#) repeat-y 50% 0;
+        }
+
+        .xl2 li {
+            width: 49.9%;
+        }
+
+        .xl2 li em {
+            padding-right: 10px;
+        }
+
+        .xl2 .xl2_r em {
+            padding-right: 0;
+        }
+
+        .xl2 .xl2_r i {
+            padding-left: 10px;
+        }
+    </style>
+{% endblock %}
+
+
+<!-- top navbar start  !-->
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+<!-- top navbar end !-->
+
+
+<!-- hot forums start -->
+{% block hot_forums %}
+    <div class="wp">
+        <!-- user center info start  -->
+        <div class="hdc cl">
+            <h2><a href="./" title="Django中文论坛"><img src="" alt="deepin 论坛" border="0"/></a></h2>
+
+            <div id="um">
+                <div class="avt y">
+                    <a href="#"><img src="#"/></a>
+                </div>
+                <p>
+                    <strong class="vwmy"><a href="#" target="_blank" title="访问我的空间">{{ user.id }}</a></strong>
+                    <span class="pipe">|</span><a href="javascript:" id="myitem" class="showmenu"
+                                                  onmouseover="showMenu({'ctrlid':'myitem'});">我的</a>
+                    <span class="pipe">|</span><a href="#">设置</a>
+                    <!-- post message to user start -->
+                    <span class="pipe">|</span><a href="#" id="pm_ntc">消息</a>
+                    <!-- post message to user end -->
+                    <span class="pipe">|</span><a href="#" id="myprompt"
+                                                  class="a showmenu"
+                                                  onmouseover="showMenu({'ctrlid':'myprompt'});">提醒</a><span
+                        id="myprompt_check"></span>
+                    <span class="pipe">|</span><a href="#" target="_blank">全部板块管理</a>
+                    <span class="pipe">|</span><a href="#">退出</a>
+                </p>
+
+                <p>
+                    <a href="#" id="extcreditmenu"
+                       onmouseover="delayShow(this, showCreditmenu);" class="showmenu">积分: 123</a>
+                    <span class="pipe">|</span><a href="#" id="g_upmine"
+                                                  class="showmenu" onmouseover="delayShow(this, showUpgradeinfo)">用户组:
+                    社区测试员</a>
+                </p>
+            </div>
+        </div>
+        <!-- user center info end -->
+
+        <!-- panel nav start 浏览路径导航 -->
+        <div id="nv">
+                        <span class="post y">
+                            <a id="post" onclick="showWindow('nav', this.href, 'get', 0)"
+                               href="{% url 'bb:category_all'  %}">选择板块发帖</a>
+                        </span>
+            <a href="javascript:" id="qmenu"
+               onmouseover="delayShow(this, function () {showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});showForummenu();})">快捷导航</a>
+            <ul class="nav">
+                <li id="mn_Nfaed"><a href="{% url 'bb:index' %}">最新回帖</a></li>
+                <li id="mn_N7918"><a href="{% url 'bb:forum_view' 1 %}" hidefocus="true">Django茶社</a></li>
+                <li id="mn_N89b5"><a href="#" hidefocus="true">安装&amp;启动</a></li>
+                <li id="mn_N4e4d"><a href="#" hidefocus="true">系统相关</a></li>
+                <li id="mn_N974d"><a href="#" hidefocus="true">应用软件</a></li>
+                <li id="mn_Ne402"><a href="#" hidefocus="true">社区协作</a></li>
+                <li class="a" id="mn_forum"><a href="{% url 'bb:category_all' %}" hidefocus="true"
+                                               title="BBS">全部板块<span>BBS</span></a>
+                </li>
+            </ul>
+        </div>
+        <!-- panel nav end 浏览路径导航 -->
+
+        <!--点击搜索图标触发设置 start  -->
+        <div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div>
+        <div id="mu" class="cl">
+        </div>
+        <div id="scbar" class="cl">
+            <form id="scbar_form" method="post" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))"
+                  action="#" target="_blank">
+                <input type="hidden" name="mod" id="scbar_mod" value="search"/>
+                <input type="hidden" name="formhash" value="d3732f6a"/>
+                <input type="hidden" name="srchtype" value="title"/>
+                <input type="hidden" name="srhfid" value=""/>
+                <input type="hidden" name="srhlocality" value="forum::guide"/>
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td class="scbar_icon_td"></td>
+                        <td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容"
+                                                        autocomplete="off" x-webkit-speech speech/></td>
+                        <td class="scbar_type_td"><a href="javascript:;" id="scbar_type" class="xg1"
+                                                     onclick="showMenu(this.id)" hidefocus="true">搜索</a></td>
+                        <td class="scbar_btn_td">
+                            <button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true">
+                                <strong class="xi2">搜索</strong></button>
+                        </td>
+                        <td class="scbar_hot_td">
+                            <div id="scbar_hot">
+                                <strong class="xw1">热搜: </strong>
+
+                                <a href="#"
+                                   target="_blank" class="xi2" sc="1">活动</a>
+
+
+                                <a href="#"
+                                   target="_blank" class="xi2" sc="1">交友</a>
+
+
+                                <a href="#"
+                                   target="_blank" class="xi2" sc="1">discuz</a>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <ul id="scbar_type_menu" class="p_pop" style="display: none;">
+            <li><a href="javascript:" rel="forum" class="curtype">帖子</a></li>
+            <li><a href="javascript:" rel="user">用户</a></li>
+        </ul>
+        <script type="text/javascript">
+            initSearchmenu('scbar', '');
+        </script>
+        <!--点击搜索图标触发设置  end -->
+    </div>
+{% endblock %}
+<!-- hot forums end -->
+
+{% block panel %}
+    {% block sum_info %}
+        <!-- 论坛的帖子总数、当日回帖数、昨日帖子总数、总注册人数 start-->
+        <div class="index-info">
+            <p class="chart z">
+                今日:
+                <em>{{ tt }}</em>
+                <span class="pipe">
+                    |
+                </span>
+                昨日:
+                <em>{{ yt }}</em>
+                <span class="pipe">
+                    |
+                </span>
+                帖子:
+                <em>{{ pc }}</em>
+                <span class="pipe">
+                    |
+                </span>
+                会员:
+                <em>{{ uc }}</em>
+                <span class="pipe">
+                    |
+                </span>
+                欢迎新会员:
+                <em>{{ ul }}</em>
+            </p>
+        </div>
+        <!-- 论坛的帖子总数、当日回帖数、昨日帖子总数、总注册人数 end-->
+    {% endblock %}
+
+    {% block panel_content %}
+        <!-- Topic list start -->
+        <div id="ct" class="wp cl">
+                <div class="mn">
+                    <div id="threadlist" class="tl bm bmw" style="position: relative;">
+                        <div class="bm_c">
+                            <div id="forumnew" style="display:none"></div>
+                            <table cellspacing="0" cellpadding="0">
+                                <!-- single topic start -->
+                                {% for t in lrt %}
+                                    <tbody id=t_"{{ t.id }}">
+                                    <tr>
+                                        <td class="avatarbox">
+                                            <a href="#">
+                                                <!-- user  small avatar-->
+                                                <img src="/media/{{ t.author.avatar_img }}"/>
+                                            </a>
+                                        </td>
+                                        <td class="max-td">
+                                            <table class="article">
+                                                <tr class="article-title">
+                                                    <td class="common">
+                                                        <a href="{% url 'bb:topic_view' t.id %}" target="_blank"
+                                                           class="xst">{{ t.title }}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="article-info">
+                                                        <div class="z forum">
+                                                            <a href="{% url 'bb:forum_view' t.forum.id %}"
+                                                               target="_blank">{{ t.forum }}</a>
+                                                        </div>
+                                                        <div class="sep z">/</div>
+                                                        <div class="z author">
+                                                            <cite>
+                                                                <a href="{% url 'user:others_profile' t.author %}"
+                                                                   c="1">{{ t.author }}</a>
+                                                            </cite>
+                                                        </div>
+                                                        <div class="sep z">/</div>
+                                                        <div class="z">
+                                                            <span><span>{{ t.created|date:'d.m.Y H:i'}}</span></span>
+                                                        </div>
+                                                        <div class="sep z">/</div>
+                                                        <div class="z last-reply">
+                                                            <div class="z">
+                                                                最后回复来自
+                                                            </div>
+                                                            <span class="z poster">
+                                                                <cite>
+                                                                    <a href="{% url 'user:others_profile' t.author_id %}" c="1">
+                                                                        {{ t.last_post.author }}
+                                                                    </a>
+                                                                </cite>
+                                                            </span>
+
+                                                            <div class="z">
+                                                                <span class="z">
+                                                                    <a href="#">
+                                                                        <span>{{ t.last_post.created|timesince:'' }}</span>
+                                                                    </a>
+                                                                    <!--
+                                                                        <a class="last"><span title="2015-8-14 19:50">12&nbsp;分钟前</span></a>
+                                                                    -->
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <div class="replies">
+                                                <a href="#" class="xi2">{{ t.post_set.count }} </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                {% empty %}
+                                    No topics yet
+                                {% endfor %}
+                                <!-- single topic end -->
+                            </table>
+                        </div>
+                    </div>
+                    <!-- pagination start  -->
+                    <div class="pgs cl">
+                        <span class="pgb">
+                        {% if lrt.has_previous %}
+                            <a href="?page={{ lrt.previous_page_number }}">返回</a>
+                        {% endif %}
+                        </span>
+
+                        <div class="pg">
+                            {% for page_number in lrt.paginator.page_range %}
+                                {% ifequal page_number lrt.number %}
+                                    <strong>{{ page_number }}</strong>
+                                {% else %}
+                                    <a href="?page={{ page_number }}">{{ page_number|truncatewords:10 }}</a>
+                                {% endifequal %}
+                            {% endfor %}
+                            <label>
+                                <input type="text" name="custompage" class="px" size="2" title="输入页码，按回车快速跳转" value="1"
+                                       onkeydown="if(event.keyCode==13) {window.location='?page='+this.value; doane(event);}"/><span
+                                    title="共 {{ paginator.num_pages }} 页"> / {{ paginator.num_pages }}</span>
+                            </label>
+                            {% if lrt.has_next %}
+                                <a href="?page={{ lrt.next_page_number }}" class="nxt">下一页</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- pagination stop -->
+                </div>
+            </div>
+        <!-- Topic list end-->
+    {% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+<!-- footer start -->
+    <div class="footer">
+        <div class="inner-footer">
+            <div class="links z">
+                <a href="#" target="_blank">关于我们</a>
+                <a href="#" target="_blank">联系我们</a>
+                <a href="#" target="_blank">友情链接</a>
+                <a class="copyright">&copy; 2015 Django中文论坛</a>
+                <a class="copyright">海外主机，无需备案</a>
+                    <span>
+                        Powered by <a target="_blank" href="#">Django</a> 1.8
+                    </span>
+            </div>
+            <div class="showmenu_outer lang y" style="display: none;">
+                <a class="showmenu">简体中文</a>
+            </div>
+            <div class="weixin-pop">
+                <p>
+                    您可以通过以下方式关注我们：
+                </p>
+
+                <p>
+                    1.微信中直接搜索＂深度Linux＂公众号
+                </p>
+
+                <p>
+                    2.使用微信扫描以下二维码
+                </p>
+                <img src="" alt="Deepin Weixin">
+            </div>
+            <div class="social y">
+                <a class="weibo z" target="_blank" href=""></a>
+                <a class="weixin pop z"></a>
+                <a class="irc pop z"></a>
+                <a class="maillist pop z"></a>
+            </div>
+        </div>
+    </div>
+<div class="mask-layer">
+</div>
+<div class="windows">
+    <div class="window weixin">
+        <div class="close"></div>
+        <div class="frame">
+            <div class="title-bar">
+                <h1>微信</h1>
+            </div>
+            <div class="client">
+                <p>
+                    欢迎关注“Django中文”公众号，使用微信扫描下方二维码即可关注。
+                </p>
+                <img src="#" alt="deepin weixin">
+            </div>
+        </div>
+    </div>
+    <div class="window irc">
+        <div class="close"></div>
+        <div class="frame">
+            <div class="title-bar">
+                <h1>IRC</h1>
+            </div>
+            <div class="client">
+                <p>
+                    IRC为linux世界中最为常见的交流方式之一，它提供了一个类似于匿名聊天室的环境，欢迎您进入deepin IRC频道与大家进行交流。
+                </p>
+
+                <div>服务器:</div>
+                <div>频道: <a class="channel" target="_blank"
+                            href="#">#deepin</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="window maillist">
+        <div class="close"></div>
+        <div class="frame">
+            <div class="title-bar">
+                <h1>邮件列表</h1>
+            </div>
+            <div class="client">
+                <p>
+                    邮件列表是linux世界中最为常见的交流方式之一，只要您加入了Django邮件列表，就可以使用邮件的方式与大家进行交流。
+                </p>
+                <!--
+                    <form>
+                        <input id="users" type="checkbox"><label for="users">deepin users:
+                        用于deepin用户的一般讨论,通用语言为英语</label> <br>
+                        <input id="developers" type="checkbox"><label for="developers">deepin developers:
+                        专用于deepin开发者讨论,通用语言为英语</label> <br>
+                        <input id="email" type="email" placeholder="请输入您的邮箱地址">
+                        <input id="submit" type="submit" value="订阅">
+                    </form>
+                -->
+                <div>
+                    ·<a href="#">deepin users</a>：用于deepin用户的一般讨论。
+                </div>
+                <div>
+                    ·<a href="#">deepin developers</a>：专用于deepin开发者讨论。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer end -->
+{% endblock %}
+
+
+{% block scroll_up %}
+<!-- 点击回滚到页面顶部 start -->
+<div id="scrolltop" style="left: auto; right: 44px; visibility: visible;">
+    <span>
+            <a id="post_new" title="发新帖" onclick="showWindow('nav', this.href, 'get', 0)"
+               href="{% url 'bb:create_topic' 1 %}">
+            </a>
+        </span>
+    <span hidefocus="true"><a title="返回顶部" onclick="window.scrollTo('0','0')" class="scrolltopa"><b>返回顶部</b></a></span>
+</div>
+<script type="text/javascript">_attachEvent(window, 'scroll', function () {
+    showTopLink();
+});
+checkBlind();
+</script>
+<!-- 点击回滚到页面顶部 start -->
+{% endblock %}
+
+

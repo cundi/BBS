@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block navbar %}
+    {% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+    {% include 'common/panel_heading.html' %}
+{% endblock %}
+
+{% block panel_body %}
+    <div class="panel-body" style="height: 1000px;  margin-left: -11px;margin-right: -11px">
+        {% for c in cf %}
+            <p style="font-size: large;"><a href="{% url 'bb:category_view' c.id %}" style="color: black">{{ c.title }}</a></p>
+
+            <table class="table table-hover">
+                {% for forum in c.forum_set.all %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'bb:forum_view' forum.id %}">
+                                <img src="/media/{{ forum.logo }}" align="left">
+                            </a>
+                        </td>
+                        <td><a href="{% url 'bb:forum_view' forum.id %}">{{ forum }}</a></td>
+                    </tr>
+                    </tbody>
+                {% empty %}
+                    请检查，没有关联到category的forum外键
+                {% endfor %}
+            </table>
+
+        {% endfor %}
+    </div>
+{% endblock %}
+
+<dl style="margin-left: 65px">
+    <dt>
+
+        <em class="" title="">{{ forum.count }}</em>
+    </dt>
+    <dd>{{ forum.description }}</dd>
+    <dd>
+        <em>
+            主题：{{ forum.topic_count }} ,
+        </em>
+        <em>
+            帖子数量：
+            <span>0, </span>
+        </em>
+        <em>点击数: <span></span></em>
+    </dd>
+</dl>

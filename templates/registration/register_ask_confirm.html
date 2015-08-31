@@ -1,0 +1,27 @@
+{% extends "deepin/base.html" %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+{% block topic_list %}
+<div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            {% if success == "1" %}
+                <div class="alert alert-success" role="alert">reg request Email was successfully sent to {{ email }}</div>
+            {% endif %}
+            {% if success == "0" %}
+                <div class="alert alert-danger" role="alert">Failed to send reg request Email to {{ email }}</div>
+            {% endif %}
+            <form id="search-form" action="" method="post">{% csrf_token %}
+            <div class="input-group input-group-sm">
+                    {{ invite.email.errors }}
+                    {{ invite.email }}
+                  <span class="input-group-btn">
+                    <button class="btn btn-search" type="submit">Invite</button>
+                  </span>
+            </div>
+          </form>
+        </div>
+	</div>
+{% endblock %}

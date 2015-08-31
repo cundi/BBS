@@ -1,0 +1,135 @@
+{% extends 'account/profile_base.html' %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+<!-- Personal inf start-->
+{% block breadcrumb %}
+    <div class="z">
+        <a href="{% url 'index' %}" class="nvhm" title="首页"></a>
+        <em>&rsaquo;</em>
+        <a href="{% url 'user:others_profile' user.username %}">{{ user.username }}</a>
+        <em>&rsaquo;</em>
+        <a href="{{ user.get_other_absolute_url }}">帖子</a>
+    </div>
+{% endblock %}
+
+
+{% block manner %}
+    <div class="uhd" style="width: 1170px; height: 128px;">
+        <div class="mn" style="width: 68px;height: 56px; margin-bottom: -30px;margin-right: 15px; margin-left: 1100px;">
+            <ul>
+                <li class="addf">
+                    <a href="#" id="a_friend_li{{ other_profile.username }}" onclick="" class="xi2">加为好友</a>
+                </li>
+                <li class="pm2">
+                    <a href="#" id="a_sendpm_" onclick="" title="发送消息">发送消息</a>
+                </li>
+            </ul>
+        </div>
+        <div class="h cl">
+            <div class="icn avt" style="float: left;margin-left: -6px">
+                <a href="#">
+                    <img src="/media/{{ user.avatar_img }}" style="height: 68px;width: 68px;margin: 12px 20px 0 30px;border-radius: 50%;">
+                </a>
+            </div>
+            <h2 class="mt">
+                {{ other_profile.username }}
+                <span class="xw0">(UID: xxx)</span>
+            </h2>
+
+            <p>
+                <a href="#" class="xg1">http://xx.xxx.xxx</a>
+                <span class="pipe">|</span>
+                <a href="#">用户管理</a>
+            </p>
+            <ul id="usermanageli_menu" class="p_pop"
+                style="width: 80px; position: absolute; z-index: 301; left: 346.07421875px; top: 224px; display: none;"
+                initialized="true">
+                <li>
+                    <a href="#" target="_blank" class="hidefocus">禁止用户</a>
+                </li>
+
+            </ul>
+        </div>
+        <ul class="tb cl" style="padding-left: 75px">
+            <li class="a">
+                <a href="{% url 'user:user_topic_post' user.username %}">主题</a>
+            </li>
+            <li>
+                <a href="{% url 'user:others_profile' user.username %}">个人资料</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block other_t_p %}
+    <div class="ct1 wp cl" id="ct">
+        <div class="mn" style="margin-top: 25px;margin-left: 18px;">
+            <div class="bm bw0">
+                <div class="bm_c">
+                    <p class="tbmu">
+                        <a href="#" class="a">主题</a>
+                        <span class="pipe">|</span>
+                        <a href="#">回复</a>
+                    </p>
+
+                    <div class="tl">
+                        <table cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr class="th">
+                                <td class="icn"></td>
+                                <th>主题</th>
+                                <td class="frm">板块</td>
+                                <td class="num">回复／查看</td>
+                                <td class="by">
+                                    <cite>最后发帖</cite>
+                                </td>
+                            </tr>
+                            {% for t in uts %}
+                                <tr>
+                                    <td class="icn">
+                                        <a href="#" target="_blank" title="新窗口打开"></a>
+                                    </td>
+                                    <th>
+                                        <a href="{{ t.get_absolute_url }}" target="_blank">{{ t.title }}</a>
+                                    </th>
+                                    <td>
+                                        <a href="{% url 'bb:forum_view' t.forum.id %}" class="xg1"
+                                           target="_blank">{{ t.forum.title }}</a>
+                                    </td>
+                                    <td class="num">
+                                        <a href="{{ t.get_absolute_url }}" class="xi2"
+                                           target="_blank">{{ t.post_count }}</a>
+                                        <em>{{ uts.count }}</em>
+                                    </td>
+                                    <td class="by">
+                                        <a href="{% url 'user:others_profile' t.last_post.author %}">{{ t.last_post.author }}</a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                No topic
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- Personal inf end->
+
+<!--Footer start-->
+{% block footer %}
+    {% include 'deepin/footer.html' %}
+{% endblock %}
+<!--Footer end-->
+
+<!-- scroll up start-->
+{% block scroll_up %}
+    {% include 'deepin/scrolltop.html' %}
+{% endblock %}
+<!-- scroll up end -->
+

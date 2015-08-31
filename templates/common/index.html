@@ -1,0 +1,314 @@
+{% extends 'common/base.html' %}
+
+{% load static %}
+
+{% block header_ext %}
+    <link rel="stylesheet" href="{% static 'css/deepin_style_2_forum_guide.css' %}">
+    <style>
+        div#ct.wp.cl {
+            width: 1104px;
+            height: auto;
+            margin-left: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+   <div id="hd">
+    <div class="wp">
+        <div class="hdc cl">
+            <h2>
+                <a href="./" title="Django中文论坛">
+                    <img src="#" alt="django 论坛" border="0">
+                </a>
+            </h2>
+
+            <div id="um">
+                <div class="avt y">
+                    <a href="#">
+                        <img src="" alt="avatar_small">
+                    </a>
+                </div>
+                <p>
+                    <strong>
+                        <a href="#" target="_blank" title="访问我的空间">admin</a>
+                    </strong>
+                    <span class="pipe">|</span>
+                    <a href="javascript:;" id="myitem" class="showmenu"
+                       onmouseover="showMenu({'ctrid':'myitem'});">我的</a>
+                    <span class="pipe">|</span>
+                    <a href="#">设置</a>
+                    <span class="pipe">|</span>
+                    <a href="#" id="pm_ntc">消息</a>
+                    <span class="pipe">|</span>
+                    <a href="#" id="myprompt" class="a showmenu" onmouseover="showMenu({'ctrid': 'myprompt'});">提醒</a>
+                    <span id="myprompt_check"></span>
+                    <span class="pipe">|</span>
+                    <a href="#" target="_blank">全部板块管理</a>
+                    <span class="pipe">|</span>
+                    <a href="#">退出</a>
+                </p>
+
+                <p>
+                    <a href="#" id="extcreditmenu" onmouseover="delayShow(this.showCreditmenu);" class="showmenu">
+                        积分：123
+                    </a>
+                    <span class="pipe">|</span>
+                    <a href="#" id="g_upmine" class="showmenu" onmouseover="delayShow(this, showUpgradeinfo)">
+                        用户组：社区测试员
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div id="nv">
+            <span class="post y">
+                <a id="post" onclick="showWindow('nav', this.href, 'get', 0)" href="#">发新帖</a>
+            </span>
+            <a href="javascript:;" id="qmenu"
+               onmouseover="delayShow(this, function () {showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});showForummenu();})">快捷导航</a>
+            <ul class="nav">
+                <li id="mn_Nfaed" class="current">
+                    <a href="{% url 'bb:index' %}" hidefocus="true" class="current">最新回帖</a>
+                </li>
+                <li>
+                    {% if forums %}
+                        {% for f in forums %}
+                            <a href="{% url 'bb:forum_view' f.id %}">{{ f.title }}</a>
+                        {% endfor %}
+                    {% else %}
+                        <p>No forums in there</p>
+                    {% endif %}
+                </li>
+                <li class="a" id="mn_forum">
+                    <a href="{% url 'bb:category_all' %}" hidefocus="true" title="BBS">
+                        全部板块
+                        <span>BBS</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div>
+        <div id="mu" class="cl">
+            " "
+        </div>
+        <div id="scbar" class="cl">
+            <form id="scform_form" method="post" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))" action="#" target="_blank">
+                <input type="hidden" name="mod" id="scbar_mod" value="search">
+                <input type="hidden" name="formhash" value="d37736a">
+                <input type="hidden" name="srchtype" value="title">
+                <input type="hidden" name="srhfid" value="">
+                <input type="hidden" name="srhlocality" value="forum::guide">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td class="scbar_icon_td"></td>
+                            <td class="scbar_txt_td">
+                                <input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech>
+                            </td>
+                            <td class="scbar_type_td">
+                                <a href="javascript:;" id="scbar_type" class="xg1" onclick="showMenu(this.id);" hidefocu="true">
+                                    帖子
+                                </a>
+                            </td>
+                            <td class="scbar_btn_td">
+                                <button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true">
+                                    <strong class="xi2">搜索</strong>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <ul id="scbar_type_menu" class="p_pop" style="display: none;">
+            <li>
+                <a href="javascript:;" rel="forum" class="curtype">帖子</a>
+            </li>
+            <li>
+                <a href="javascript:;" rel="user">用户</a>
+            </li>
+        </ul>
+        <script type="text/javascript">initSearchmenu('scbar', '');</script>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block panel_body %}
+            <p>
+            今日:
+            <em>{{ today_topics_count }}</em>
+                <span class="pipe">
+                |
+            </span> 昨日:
+            <em>{{ yesterday_topics_count }}</em>
+                <span class="pipe">
+                |
+            </span> 帖子:
+            <em>{{ posts_count }}</em>
+                <span class="pipe">
+                |
+            </span> 会员:
+            <em>{{ users_count }}</em>
+                <span class="pipe">
+                |
+            </span> 欢迎新会员:
+            <em>{{ user_latest }}</em>
+        </p>
+    <div id="ct" class="wp cl">
+        <div class="mn">
+            <div class="tl bm bmw" id="threadlist" style="position: relative">
+                <div class="bm_c">
+                    <div id="forumnew" style="display: none"></div>
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody id="normalthread_topic_id">
+                        {% for lt in last_replied_topics %}
+                            <tr>
+                                <td class="avatarbox">
+                                    <a href="{% url 'user:profile' lt.author.pk %}">
+                                        <img src="/media/{{ lt.author.avatar_img }}" alt="">
+                                    </a>
+                                </td>
+                                <td class="max-td">
+                                    <table class="article">
+                                        <tbody>
+                                        <tr class="article-title">
+                                            <td class="common">
+                                                <a href="{% url 'bb:topic_view' lt.id %}">{{ lt.title }}</a>
+                                                {#                                                    <img src="#" alt="attach_img" title="图片附件" align="absmiddle">#}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="article-info">
+                                                <div class="z forum">
+                                                    <a href="{% url 'bb:forum_view' lt.forum.id %}"
+                                                       target="_blank">{{ lt.forum }}</a>
+                                                </div>
+                                                <div class="sep z">/</div>
+                                                <div class="z author">
+                                                    <cite>
+                                                        <a href="{% url 'user:profile' lt.author.pk %}" c="1"
+                                                           mid="card_2281">{{ lt.author }}</a>
+                                                    </cite>
+                                                </div>
+                                                <div class="sep z">/</div>
+                                                <div class="z">
+                                                        <span>
+                                                            <span title="">{{ lt.created|timesince }}</span>
+                                                        </span>
+                                                </div>
+                                                <div class="sep z">/</div>
+                                                <div class="z last-reply">
+                                                    <div class="z">
+                                                        “最后回复来自”
+                                                    </div>
+                                                </div>
+                                                    <span class="z poster">
+                                                        <cite>
+                                                            <a href="{% url 'user:profile' lt.author %}" c="1"
+                                                               mid="card_{{ lt.author }}">
+                                                                {{ lt.author }}
+                                                            </a>
+                                                        </cite>
+                                                    </span>
+
+                                                <div class="z">
+                                                        <span class="z">
+                                                            <a href="#">
+                                                                <span>最后回复时间</span>
+                                                            </a>
+                                                        </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <div class="replies" style="height: 17px; width: 35px; text-align: center;padding: 0 8px;
+                                    margin: 0 20px 0 0; vertical-align: middle; border-radius: 20px;background-color: #96A7C4">
+                                        <a href="#" class="xi2">
+                                            9
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block panel_paganation %}
+    <div class="pgs cl">
+        <span class="pgb">
+            {% if last_replied_topics.has_previous %}
+                <a href="?page={{ last_replied_topics.previous_page_number }}">返回</a>
+            {% endif %}
+        </span>
+        <span id="fd_page_bottom">
+            <div class="pg">
+                {% for page_number in last_replied_topics.paginator.page_range %}
+                    {% ifequal page_number last_replied_topics.number %}
+                        <strong>{{ page_number }}</strong>
+                    {% else %}
+                        <a href="?page={{ page_number }}">{{ page_number }}</a>
+                    {% endifequal %}
+                {% endfor %}
+                <label>
+                    <input type="text" name="custompage" class="px" size="2" title="输入页码，按回车快速跳转" value="1"
+                           onkeydown="if(event.keyCode==13) {window.location='?page='+this.value;; doane(event);}">
+                    <span>/  {{ paginator.num_pages }}页</span>
+                </label>
+                {% if last_replied_topics.has_next %}
+                    <a href="?page={{ last_replied_topics.next_page_number }}" class="nxt">下一页</a>
+                {% endif %}
+            </div>
+        </span>
+    </div>
+{% endblock %}
+
+{% block panel_footer %}
+
+    <div class="wp cl">
+        <div class="footer">
+        <div class="inner-footer">
+            <div class="links z">
+                <a href="#" target="_blank">关于我们</a>
+                <a href="#" target="_blank">联系我们</a>
+                <a class="copyright">© 2015 django-china.ml Bulletin Board System</a>
+                <span>
+                Powered by
+                    <a href="#" target="_blank">Django</a><a href="#" target="_blank">DigitalOcean</a>
+                </span>
+            </div>
+            <div class="social y">
+                <a class="weibo z" href="#" target="_blank"></a>
+                <a class="weixin pop z"></a>
+                <a class="irc pop z"></a>
+                <a class="maillist pop z"></a>
+            </div>
+        </div>
+    </div>
+        <div class="mask-layer" style="display: none; width: 1349px; height: 3423px;"></div>
+    </div>
+    <div id="scrolltop" style="left: auto; right: 44px; visibility: visible;">
+        <span>
+            <a id="post_new" title="发新帖" onclick="showWindow('nav', this.href, 'get', 0)" href="{% url 'bb:create_topic' 1 %}"></a>
+        </span>
+        <span hidefocus="true">
+            <a title="返回顶部" onclick="window.scrollTo('0', '0')" class="scrolltopa">
+                <b>返回顶部</b>
+            </a>
+        </span>
+    </div>
+    <script type="text/javascript">_attachEvent(window, 'scroll', function(){showTopLink();});checkBlind();</script>
+    <div id="discuz_tips" style="display: none"></div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{#{% load pagination_tags %}#}
+
+{% block navbar %}
+{% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+    {% include 'common/panel_heading.html' %}
+{% endblock %}
+
+
+{% block panel_second_heading %}
+    <div class="panel-heading" id='index_info' style="background-color: #eee">
+        <table>
+            <tr>
+                <td><img src="/media/{{ forum.logo }}"></td>
+                <td><p style="font-size: 20px;color: #000000;">{{ forum.title }}</p></td>
+                <td>{{ forum.description }}  </td>
+                <td style="margin-right: -500px;">| 分区版主：<a>{{ forum.manager }}</a> |</td>
+                <td><a>最新回复： </a>|</td>
+            </tr>
+        </table>
+
+    </div>
+{% endblock %}
+
+{% block panel_body %}
+    <div class="panel-body" style="height: 1000px;  margin-left: -11px;
+        margin-right: -11px">
+    <table class="table table-hover" style="">
+        <thead>
+        <tr>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody style="">
+        {% with  topics  as tp %}
+            {% for t in tp %}
+        <tr>
+            <td><a href="{% url 'bb:topic_view' t.id %}">{{ t.title }}</a></td>
+        </tr>
+            {% endfor %}
+            {% if not tp %}
+                <strong>topic is empty</strong>
+            {% endif %}
+        {% endwith %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block panel_paganation %}
+    {% include 'common/paganation.html' %}
+{% endblock %}
+
+{% block panel_footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}

@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>最新回帖 - 首页 Django中文论坛</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=",Django中文论坛"/>
+    <meta name="generator" content="Django 1.8"/>
+    <meta name="author" content="Django"/>
+    <meta name="copyright" content="Django."/>
+    <meta name="MSSmartTagsPreventParsing" content="True"/>
+    <meta http-equiv="MSThemeCompatible" content="Yes"/>
+    <meta name="renderer" content="webkit">
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/deepin.js' %}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deepin_style_2_common.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dp_style_home_space.css' %}"/>
+    <script src="{% static 'js/deepin_common.js' %}" type="text/javascript"></script>
+    <meta name="application-name" content="Django中文论坛"/>
+    <meta name="msapplication-tooltip" content="Django中文论坛"/>
+    <meta name="msapplication-task"
+          content="name=全部板块;action-uri=#"/>
+    <link rel="archives" title="Django中文论坛" href="#"/>
+    {% block head_ext %}
+    {% endblock %}
+</head>
+
+<body id="nv_home" class="pg_spacecp" onkeydown="if(event.keyCode==27) return false;">
+
+{% block navbar_top %}
+{% endblock %}
+
+<div id="wp" class="wp">
+
+    <div id="pt" class="bm cl">
+        {% block breadcrumb %}
+        {% endblock %}
+    </div>
+    {% block manner %}
+    {% endblock %}
+
+    {% block my_settings %}
+    {% endblock %}
+
+
+    {% block other_content %}
+    {% endblock %}
+
+    {% block other_t_p %}
+    {% endblock %}
+</div>
+
+{% block footer %}
+{% endblock %}
+
+{% block scroll_up %}
+{% endblock %}
+
+</body>

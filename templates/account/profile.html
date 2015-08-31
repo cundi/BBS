@@ -1,0 +1,134 @@
+{% extends 'account/profile_base.html' %}
+
+{% block head_ext %}
+    {{ form.media }}
+{% endblock %}
+
+{% block navbar_top %}
+    {% include 'deepin/navbar_top.html' %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <div class="z">
+            <a href="{% url 'index' %}" class="nvhm" title="首页"></a> <em>&rsaquo;</em>
+            <a href="#">设置</a> <em>&rsaquo;</em>个人资料
+        </div>
+{% endblock %}
+
+<!-- Personal inf start-->
+{% block my_settings %}
+    <div id="ct" class="ct2_a wp cl">
+        <div class="mn">
+            <div class="bm bw0">
+                <h1 class="mt">个人资料
+                </h1>
+                <!--don't close the div here-->
+                <ul class="tb cl">
+                    <li class="a"><a href="#">个人资料</a></li>
+                </ul>
+                <iframe id="frame_profile" name="frame_profile" style="display: none"></iframe>
+                <form action="{% url 'user:my_profile' %}" method="post" enctype="multipart/form-data" autocomplete="off" target="frame_profile" onsubmit="clearErrorInfo();">
+                    {% csrf_token %}
+                    <table cellspacing="0" cellpadding="0" class="tfm" id="profilelist">
+                        <tr>
+                            <th>用户名</th>
+                            {% if user %}
+                            <td>{{ user.username }}</td>
+                            <td>&nbsp;</td>
+                            {% endif %}
+                        </tr>
+                        <tr id="tr_site">
+                            <th id="th_site">个人主页</th>
+                            <td id="td_site">
+                                <input type="text" name="site" id="site" class="px" tabindex="1"/>
+                                <div class="rq mtn" id="showerror_site"></div>
+                                <p class="d"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th id="th_sightml">个人签名</th>
+                            <td id="td_sightml">
+                                {% if form %}
+                                {{ form.Content }}
+                                {% else %}
+                                <p>But there has not a signature, you need create one.</p>
+                                {% endif %}
+                                <div id="signhtmlpreview"></div>
+                                <div id="showerror_sightml" class="rq mtn"></div>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td colspan="2">
+                                <input type="hidden" name="profilesubmit" value="true"/>
+                                <button type="submit" name="profilesubmitbtn" id="profilesubmitbtn" value="true"
+                                        class="pn pnc"/>
+                                <strong>保存</strong></button>
+                                <span id="submit_result" class="rq"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <script type="text/javascript">
+                    function show_error(fieldid, extrainfo) {
+                        var elem = $('th_' + fieldid);
+                        if (elem) {
+                            elem.className = "rq";
+                            fieldname = elem.innerHTML;
+                            extrainfo = (typeof extrainfo == "string") ? extrainfo : "";
+                            $('showerror_' + fieldid).innerHTML = "请检查该资料项 " + extrainfo;
+                            $(fieldid).focus();
+                        }
+                    }
+                    function show_success(message) {
+                        message = message == '' ? '资料更新成功' : message;
+                        showDialog(message, 'right', '提示信息', function () {
+                            top.window.location.href = top.window.location.href;
+                        }, 0, null, '', '', '', '', 3);
+                    }
+{#                    function clearErrorInfo() {#}
+{#                        var spanObj = $('profilelist').getElementsByTagName("div");#}
+{#                        for (var i in spanObj) {#}
+{#                            if (typeof spanObj[i].id != "undefined" && spanObj[i].id.indexOf("_")) {#}
+{#                                var ids = explode('_', spanObj[i].id);#}
+{#                                if (ids[0] == "showerror") {#}
+{#                                    spanObj[i].innerHTML = '';#}
+{#                                    $('th_' + ids[1]).className = '';#}
+{#                                }#}
+{#                            }#}
+{#                        }#}
+{#                    }#}
+                </script>
+            </div>
+        </div>
+        <div class="appl">
+            <div class="tbn">
+                <h2 class="mt bbda">设置</h2>
+                <ul>
+                    <li><a href="#">修改头像</a></li>
+                    <li class="a"><a href="#">个人资料</a></li>
+                    <li><a href="#">积分</a></li>
+                    <li><a href="#">用户组</a></li>
+                    <li><a href="#">隐私筛选</a></li>
+                    <li><a href="#">密码安全</a></li>
+                    <li><a href="#">QQ绑定</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+<!--Footer start-->
+{% block footer %}
+    {% include 'deepin/footer.html' %}
+{% endblock %}
+<!--Footer end-->
+
+<!-- scroll up start-->
+{% block scroll_up %}
+    {% include 'deepin/scrolltop.html' %}
+{% endblock %}
+<!-- scroll up end -->
+

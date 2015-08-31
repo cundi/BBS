@@ -1,0 +1,62 @@
+{% extends 'common/base.html' %}
+
+
+{% block navbar %}
+{% include 'common/navbar.html' %}
+{% endblock %}
+
+{% block panel_heading %}
+    {% include 'common/panel_heading.html' %}
+{% endblock %}
+
+{% block panel_second_heading %}
+    <div class="panel-heading" id='index_info' style="background-color: #eee">
+        <p>
+            今日:
+            <em>{{ today_topics_count }}</em>
+                <span class="pipe">
+                |
+            </span> 昨日:
+            <em>{{ yesterday_topics_count }}</em>
+                <span class="pipe">
+                |
+            </span> 帖子:
+            <em>{{ posts_count }}</em>
+                <span class="pipe">
+                |
+            </span> 会员:
+            <em>{{ users_count }}</em>
+                <span class="pipe">
+                |
+            </span> 欢迎新会员:
+            <em></em>
+        </p>
+</div>
+{% endblock %}
+
+{% block panel_body %}
+    {% if category %}
+    <div class="panel-body">
+        <p><a href="{% url 'bb:category_view' category.id %}">{{ category.title }}</a></p>
+
+        <!-- Table -->
+        <table class="table table-hover">
+
+            {% for forum in category.forum_set.all %}
+            <tbody>
+               <tr>
+                   <td><a href="{% url 'bb:forum_view' forum.id %}"><img src="/media/{{ forum.logo }}" align="left"></a></td>
+                   <td><a href="{% url 'bb:forum_view' forum.id %}">{{ forum }}</a></td>
+               </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+        <p>Category Does not exist</p>
+    {% endif %}
+{% endblock %}
+
+{% block panel_footer %}
+    {% include 'common/footer.html' %}
+{% endblock %}

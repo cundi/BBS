@@ -12,6 +12,6 @@
     <form method="post" action="{% url 'bb:create_topic' forum.id %}">
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="submit" style="border-radius: inherit">
     </form>
-    <input type="submit" style="border-radius: inherit">
 {% endblock %}

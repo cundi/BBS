@@ -20,7 +20,7 @@ from utils.utils import upload_to
 import django.utils.timezone
 from bb.models import Post, Topic
 from DjangoUeditor.models import UEditorField
-from bb import utils
+# from bb import utils
 
 USER_STATUS = (
     (False, 'Disable'),
